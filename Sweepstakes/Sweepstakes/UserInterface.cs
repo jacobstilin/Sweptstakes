@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sweepstakes
 {
-    class UserInterface
+    static class UserInterface
     {
+        
+
+        
     }
 }

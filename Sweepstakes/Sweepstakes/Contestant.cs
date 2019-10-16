@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sweepstakes
 {
-    class Contestant
+    public class Contestant
     {
         public string firstName;
         public string lastName;
@@ -15,8 +15,9 @@ namespace Sweepstakes
         public int registrationNumber;
         public List<string> firstNames;
         public List<string> lastNames;
+        private Random random;
 
-        public Contestant()
+        public Contestant(Random random)
         {
             firstNames = new List<string>() { "Juan", "Jason", "Ash", "Zofia", "Mustachio", "Pistachio", "Dirk", "Chimmy",
                 "Cotter", "Mona", "Moe", "Eggy", "Shorty", "Dennis", "Blake", "Ichobad", "Sonny", "Revolver", "Mugsy",
@@ -35,12 +36,21 @@ namespace Sweepstakes
                 "Dissweh", "Shemp", "PigBwah", "Bimmer", "Spencer", "Bobammy", "Plour", "Chimmaram", "Gordin",
                 "Boston", "Deleo", "Palmy", "Wetha", "Sirius", "Texas", "Reed", "Bananas", "Macaque", "Tucker",
                 "Carbone", "Schwartz", "McCreary", "McGuire", "Mauma", "Jim", "Rodgers", "Rontalius"
-            }
+            };
+            this.random = random;
+            CreateContestant();
+        }
+
+        private void CreateContestant()
+        {
+            firstName = firstNames[random.Next(firstNames.Count - 1)];
+            lastName = lastNames[random.Next(lastNames.Count - 1)];
+            emailAddress = (firstName + lastName + "@yahoo.com");
         }
 
         public void UserRegistration()
         {
-            
+
         }
     }
 }

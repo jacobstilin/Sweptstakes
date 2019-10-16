@@ -8,18 +8,50 @@ namespace Sweepstakes
 {
     public class MarketingFirm
     {
-        ISweepstakesManager manager;
+        static Random random = new Random(DateTime.Now.Millisecond);
+
+        SweepstakesStackManager stackManager;
+        SweepstakesQueueManager queueManager;
         public MarketingFirm(ISweepstakesManager manager)
         {
-            this.manager = manager;
+            
+        }
+
+        public void MakeContestants(Sweepstakes sweepstakes)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                Contestant contestant = new Contestant(random);
+                sweepstakes.RegisterContestant(contestant);
+
+            }
         }
 
         public void CreateSweepstakes()
         {
-            Console.WriteLine("Enter a name for this sweepstakes.");
-            string name = Console.ReadLine();
-            queue.CreateSweepstakes(name);
-            stack.CreateSweepstakes(name);
+            Console.WriteLine("Choose a sweepstakes management method, stack or queue.");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "stack":
+                    Console.WriteLine("Enter a name for this sweepstakes.");
+                    string sName = Console.ReadLine();
+                    Sweepstakes sSweepstakes = new Sweepstakes(sName);
+                    MakeContestants(sSweepstakes);
+                    stackManager.InsertSweepstakes(sSweepstakes);
+                    break;
+                case "queue":
+                    Console.WriteLine("Enter a name for this sweepstakes.");
+                    string qName = Console.ReadLine();
+                    Sweepstakes qSweepstakes = new Sweepstakes(qName);
+                    MakeContestants(qSweepstakes);
+                    queueManager.InsertSweepstakes(qSweepstakes);
+                    break;
+            }
         }
+
+
+        
     }
 }

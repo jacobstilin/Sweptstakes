@@ -9,7 +9,7 @@ namespace Sweepstakes
     public class Sweepstakes
     {
         Dictionary<Contestant, int> dictionary;
-        Random random = new Random();
+        
         public Sweepstakes(string name)
         {
             dictionary = new Dictionary<Contestant, int>();
