@@ -39,6 +39,7 @@ namespace Sweepstakes
             };
             this.random = random;
             CreateContestant();
+            
         }
 
         private void CreateContestant()
@@ -46,11 +47,9 @@ namespace Sweepstakes
             firstName = firstNames[random.Next(firstNames.Count - 1)];
             lastName = lastNames[random.Next(lastNames.Count - 1)];
             emailAddress = (firstName + lastName + "@yahoo.com");
+            name = (firstName + " " + lastName);
         }
 
-        public void UserRegistration()
-        {
-
-        }
+        
     }
 }

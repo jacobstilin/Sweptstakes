@@ -8,46 +8,57 @@ namespace Sweepstakes
 {
     public class MarketingFirm
     {
-        static Random random = new Random(DateTime.Now.Millisecond);
+        public static Random random = new Random(DateTime.Now.Millisecond);
 
-        SweepstakesStackManager stackManager;
-        SweepstakesQueueManager queueManager;
-        public MarketingFirm(ISweepstakesManager manager)
+        public ISweepstakesManager manager;
+        public MarketingFirm()
         {
             
         }
 
-        public void MakeContestants(Sweepstakes sweepstakes)
+        public string GetManagerType()
         {
-            for (int i = 0; i < 20; i++)
+            Console.WriteLine("Enter stack or queue to select manager");
+            
+            string input = Console.ReadLine();  // validation here
+            if (input != "stack" && input != "queue")
             {
-                Contestant contestant = new Contestant(random);
-                sweepstakes.RegisterContestant(contestant);
-
+                Console.WriteLine("Please enter a valid choice.");
+                return GetManagerType();
             }
+            return input;
         }
+
+        public void CreateManager(string type)
+        {
+            manager = ManagerFactory.CreateManager(type);
+        }
+
+        
+
+
+        // this has to be completely reworked. the ISweepstakesManager will be created as either a stack or a queue when the program is started. 
 
         public void CreateSweepstakes()
         {
-            Console.WriteLine("Choose a sweepstakes management method, stack or queue.");
-            string choice = Console.ReadLine();
+            Console.WriteLine("Enter a name for this sweepstakes.");
+            string name = Console.ReadLine();
+            Sweepstakes sweepstakes = new Sweepstakes(name, random);
+            manager.InsertSweepstakes(sweepstakes);
+            
+        }
 
-            switch (choice)
+        public void GetSweepstakes()
+        {
+            Sweepstakes sweepstakes = manager.GetSweepstakes();
+            if (sweepstakes == null)
             {
-                case "stack":
-                    Console.WriteLine("Enter a name for this sweepstakes.");
-                    string sName = Console.ReadLine();
-                    Sweepstakes sSweepstakes = new Sweepstakes(sName);
-                    MakeContestants(sSweepstakes);
-                    stackManager.InsertSweepstakes(sSweepstakes);
-                    break;
-                case "queue":
-                    Console.WriteLine("Enter a name for this sweepstakes.");
-                    string qName = Console.ReadLine();
-                    Sweepstakes qSweepstakes = new Sweepstakes(qName);
-                    MakeContestants(qSweepstakes);
-                    queueManager.InsertSweepstakes(qSweepstakes);
-                    break;
+                Console.WriteLine("There are no sweepstakes present.");
+            }
+            else
+            {
+                Contestant winner = sweepstakes.PickWinner();
+                Console.WriteLine("Winner: " + winner.name);
             }
         }
 

@@ -22,9 +22,19 @@ namespace Sweepstakes
 
         public Sweepstakes GetSweepstakes()
         {
-            return stack.Pop();
-        }
+            try
+            {
+                return stack.Pop();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }  
+            
 
+
+            
 
     }
 }

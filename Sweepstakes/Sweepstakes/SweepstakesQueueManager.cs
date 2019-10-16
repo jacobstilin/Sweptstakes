@@ -23,7 +23,14 @@ namespace Sweepstakes
 
         public Sweepstakes GetSweepstakes()
         {
-            return queue.Dequeue();
+            try
+            {
+                return queue.Dequeue();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
     }
