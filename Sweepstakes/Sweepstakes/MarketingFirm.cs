@@ -57,8 +57,7 @@ namespace Sweepstakes
             }
             else
             {
-                Contestant winner = sweepstakes.PickWinner();
-                Console.WriteLine("Winner: " + winner.name);
+                sweepstakes.NotifyContestants();
             }
         }
 
